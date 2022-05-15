@@ -1,0 +1,53 @@
+# 解析操作
+域名查询(本地:手机 电脑 服务器(日志，抓数据包，cache) 远程:在线 代理 服务器 加密解析） 不带线路！ 
+
+开始
+使用阿里云+dns.com( 这是一个老牌的公司，解析非常稳定)
+               A记录(主机记录)
+@   A 116.62.168.205 #主域
+www  A 116.62.168.205 #子域
+
+ttl=600s  因为需要更换别名记录，所以必须要比较小。
+
+               cname记录(别名记录)
+本域
+@ cname www.wuxianshudian.top #主域到子域
+www cname wuxianshudian.top #子域到主域
+别名到com域名 毕竟大部分香油人和岛蛙人都会英语！这样有利于互相做广告。
+@ cname wuxianshudian.com #主域到主域
+@ cname www.wuxianshudian.com #主域到子域
+www cname wuxianshudian.com #主域到主域
+www cname www.wuxianshudian.com #主域到子域
+
+ttl=600s 因为别名记录会影响其他的域名记录解析，所以必须要通过修改或删除记录。那要如果时间太长的话，就影响解析更新。
+
+
+
+              mx(邮件交换记录)
+              注意
+              mx不是别名或a记录，不会有冲突。
+ 本域 到本域
+ @ mx 5 wuxianshudian.top
+ @ mx 10 www.wuxianshudia.top
+ www mx 5 wuxianshudian.top
+ www  mx 10 www.wuxianshudia.top
+  本域 到com域
+ @ mx 5 wuxianshudian.com
+ @ mx 10 www.wuxianshudia.com
+ www mx 5 wuxianshudian.com
+ www  mx 10 www.wuxianshudia.com
+
+         TXT (本文)/spf (邮件白名单记录)
+  本域 到本域
+  @ TXT v=spf1 include:wuxianshudian.top ~all
+  @ TXT v=spf1 include:www.wuxianshudian.top ~all
+  www TXT v=spf1 include:wuxianshudian.top ~all
+  www. TXT v=spf1 include:www.wuxianshudian.top ~all
+  本域 到com域
+  @ TXT v=spf1 include:wuxianshudian.com ~all
+  @ TXT v=spf1 include:www.wuxianshudian.com ~all
+  www TXT v=spf1 include:wuxianshudian.com ~all
+  www. TXT v=spf1 include:www.wuxianshudian.com ~all
+
+
+
